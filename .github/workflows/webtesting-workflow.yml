@@ -3,7 +3,28 @@ run-name: On push - Web Testing Run
 on: [push]
 
 jobs:
-  test:
+  web-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello World"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install python 3.14
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Install Node.js 24.14
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24.14'
+
+      - name: Install Requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U -r requirements.txt
+          sudo npm install playwright
+          sudo npx playwright install-deps
+          rfbrowser init
+
+      - name: Run RF WEB Tests
+        run: |
+          robot -d ./results -v HEADLESS:true -v BROWSER:chromium

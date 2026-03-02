@@ -1,7 +1,7 @@
 *** Settings ***
 Resource  ../resources/serve-rest-front.resource
 Suite Setup  Cadastrar Usuário e Logar
-
+Suite Teardown  Close Browser  ALL
 
 *** Test Cases ***
 Login com sucesso Serve Rest Front
