@@ -5,15 +5,16 @@ on: [push]
 jobs:
   web-tests:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install python 3.14
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.14'
       - name: Install Node.js 24.14
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '24.14'
 
@@ -37,3 +38,15 @@ jobs:
           path: ./results
           if-no-files-found: ignore
           retention-days: 4
+      - name: Download Test Results
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          name: results-chromium
+      - name: Send Report
+        if: always()
+        uses: joonvena/robotframework-reporter-action@v2.5
+        with:
+          report_path: results-chromium
+          gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+          show_passed_tests: false
