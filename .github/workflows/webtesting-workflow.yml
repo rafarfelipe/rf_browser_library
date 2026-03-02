@@ -43,6 +43,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: results-chromium
+          path: results-chromium
       - name: Send Report
         if: always()
         uses: joonvena/robotframework-reporter-action@v2.5
