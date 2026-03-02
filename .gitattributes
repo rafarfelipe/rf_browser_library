@@ -1,0 +1,6 @@
+# Ensure GitHub Linguist classifies Robot Framework sources correctly
+*.robot linguist-language=RobotFramework
+*.resource linguist-language=RobotFramework
+
+# Treat generated test artifacts as generated (should not count as repo language)
+results/** linguist-generated=true

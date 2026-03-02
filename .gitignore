@@ -1,0 +1,10 @@
+# Robot Framework / Browser library outputs
+results/
+
+# Common RF output files (if generated elsewhere)
+output.xml
+log.html
+report.html
+
+# Playwright logs
+playwright-log*.txt
